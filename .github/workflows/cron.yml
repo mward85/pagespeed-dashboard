@@ -8,7 +8,7 @@ on:
   # Triggers at minute 0 past every hour.
   # Helper: https://crontab.guru/
   schedule:
-    - cron: "*/5 * * * *"
+    - cron: "*/5 * * */6 *"
  
       # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
