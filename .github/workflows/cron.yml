@@ -21,4 +21,4 @@ jobs:
     steps:
       # Runs a single command using the runners shell
       - name: GET Pagespeed Report
-        run: curl '${{ vars.GOOGLE_PAGESPEED_ENDPOINT }}?url=https://www.californiaclosets.com&key=${{ secrets.GOOGLE_API_KEY }}}' -o ./scans/$(date +%F_%R)-COM.json
+        run: curl '${{ vars.GOOGLE_PAGESPEED_ENDPOINT }}?url=https://www.californiaclosets.com&key=${{ secrets.GOOGLE_API_KEY }}' -o ./scans/$(date +%F_%R)-COM.json
