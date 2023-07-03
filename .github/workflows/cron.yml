@@ -21,4 +21,11 @@ jobs:
     steps:
       # Runs a single command using the runners shell
       - name: GET Pagespeed Report
-        run: curl '${{ vars.GOOGLE_PAGESPEED_ENDPOINT }}?url=https://www.californiaclosets.com&key=${{ secrets.GOOGLE_API_KEY }}' -o ../scans/$(date +%F_%R)-COM.json
+        run: curl '${{ vars.GOOGLE_PAGESPEED_ENDPOINT }}?url=https://www.californiaclosets.com&key=${{ secrets.GOOGLE_API_KEY }}' $(date +%F_%R)-COM.json
+      # Add, commit, then push the new file to the repo
+      - name: Adds the new log file to the repo
+        run: git add .
+      - name: Commit change to repo
+        run: git -c user.email="${{ secrets.EMAIL }}" -c user.name="${{ secrets.USERNAME }}" commit -am "Adding speed reports for California Closets"
+      - name: Push change to repo
+        run: git push origin main
