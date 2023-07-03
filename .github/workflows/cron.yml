@@ -29,7 +29,7 @@ jobs:
       - name: GET Pagespeed Report
         run: curl '${{ vars.GOOGLE_PAGESPEED_ENDPOINT }}?url=https://www.californiaclosets.com&key=${{ secrets.GOOGLE_API_KEY }}' > $(date +%F_%R)-COM.json
       - name: Adds the new log file to the repo
-        run: git add .
+        run: git add ./scans/
       - name: git config
         run: | 
           git config --global user.name 'GitHub Report Bot'
