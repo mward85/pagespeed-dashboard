@@ -29,9 +29,8 @@ jobs:
         run: curl '${{ vars.GOOGLE_PAGESPEED_ENDPOINT }}?url=https://www.californiaclosets.com&key=${{ secrets.GOOGLE_API_KEY }}' > $(date +%F_%R)-COM.json
       - name: Commit report
         run: |
-          ls 
-      #    cd ../../scans
-      # git config --global user.name 'GitHub Report Bot'
-      # git config --global user.email '<>'
-      # git commit -am "Automated report"
-      # git push
+          cd scans
+          git config --global user.name 'GitHub Report Bot'
+          git config --global user.email '<>'
+          git commit -am "Automated report"
+          git push
