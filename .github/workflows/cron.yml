@@ -32,6 +32,6 @@ jobs:
           cd scans
           git config --global user.name 'GitHub Report Bot'
           git config --global user.email '<>'
-          git add $(date +%F_%R)-COM.json
+          git add .
           git commit -am "Automated report"
           git push
