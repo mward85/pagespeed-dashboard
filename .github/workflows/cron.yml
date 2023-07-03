@@ -7,10 +7,14 @@ name:
 on:
   # Triggers at minute 0 past every hour.
   # Helper: https://crontab.guru/
+  push:
+    branches:
+      - main
   schedule:
     - cron: "*/5 * * */6 *"
  
-      # A workflow run is made up of one or more jobs that can run sequentially or in parallel
+permissions:
+  contents: write
 jobs:
   # This workflow contains a single job called "cron"
   cron:
@@ -19,6 +23,14 @@ jobs:
  
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
+      - uses: actions/checkout@v3
       # Runs a single command using the runners shell
       - name: GET Pagespeed Report
-        run: curl '${{ vars.GOOGLE_PAGESPEED_ENDPOINT }}?url=https://www.californiaclosets.com&key=${{ secrets.GOOGLE_API_KEY }}' -o ../../scans/$(date +%F_%R)-COM.json
+        run: curl '${{ vars.GOOGLE_PAGESPEED_ENDPOINT }}?url=https://www.californiaclosets.com&key=${{ secrets.GOOGLE_API_KEY }}' > $(date +%F_%R)-COM.json
+      - name: Commit report
+        run: |
+          cd ../../scans
+          git config --global user.name 'GitHub Report Bot'
+          git config --global user.email '<>'
+          git commit -am "Automated report"
+          git push
