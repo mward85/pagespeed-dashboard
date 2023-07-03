@@ -24,14 +24,17 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       - uses: actions/checkout@v3
-      # Runs a single command using the runners shell
+      - name: Open Scans Directory
+        run: cd scans
       - name: GET Pagespeed Report
         run: curl '${{ vars.GOOGLE_PAGESPEED_ENDPOINT }}?url=https://www.californiaclosets.com&key=${{ secrets.GOOGLE_API_KEY }}' > $(date +%F_%R)-COM.json
-      - name: Commit report
-        run: |
-          cd scans
+      - name: Adds the new log file to the repo
+        run: git add .
+      - name: git config
+        run: | 
           git config --global user.name 'GitHub Report Bot'
           git config --global user.email '<>'
-          git add .
+      - name: Commit report
+        run: |
           git commit -am "Automated report"
           git push
